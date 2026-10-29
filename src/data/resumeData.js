@@ -143,6 +143,27 @@ export const resumeData = {
       featured: true,
       color: "from-purple-500/20 to-pink-600/10",
       stats: { metric1: "Multi-Topic Engine", metric2: "AI Personalized", metric3: "Automated Pipeline" }
+    },
+    {
+      id: "developer-portfolio",
+      title: "Interactive Systems Engineer Portfolio",
+      category: "Frontend & Corporate",
+      client: "Personal Engineering Showcase",
+      date: "Shipped Oct 2026",
+      status: "In Production",
+      summary: "A high-performance modern developer portfolio showcasing production architectures, kinetic typography, dynamic dark/light themes, and telemetry-backed systems engineering.",
+      highlights: [
+        "Engineered with React 18 and Vite for sub-second page loads, responsive CSS architectures, and zero bloated runtime dependencies.",
+        "Designed an iconic Monolith theme toggle with seamless dark/light palette transitions and custom typography systems.",
+        "Implemented character-rolling scroll reveal animations using IntersectionObserver with viewport exit resets.",
+        "Integrated direct FormSubmit transmission with automated mailto fallback and interactive live system simulators."
+      ],
+      tags: ["React", "Vite", "Responsive Design", "CSS3 Animations", "IntersectionObserver", "FormSubmit"],
+      liveUrl: null,
+      githubUrl: "https://github.com/Hariprasad2120/Portfolio",
+      featured: true,
+      color: "from-emerald-500/20 to-teal-600/10",
+      stats: { metric1: "100 Lighthouse", metric2: "60fps Motion", metric3: "Zero Dependency CSS" }
     }
   ],
 
