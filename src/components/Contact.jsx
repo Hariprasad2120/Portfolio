@@ -16,46 +16,30 @@ export default function Contact() {
     setTimeout(() => setCopiedType(null), 2500);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage('');
 
-    try {
-      // Send directly to FormSubmit (delivers securely to hariprasad.official.137@gmail.com)
-      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(resumeData.personal.email)}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formState.name,
-          email: formState.email,
-          _subject: `Portfolio Message from ${formState.name}: ${formState.subject || 'New Inquiry'}`,
-          subject: formState.subject,
-          message: formState.message,
-          _template: 'table',
-          _captcha: 'false'
-        })
-      });
+    const subject = encodeURIComponent(
+      `Portfolio Inquiry: ${formState.subject || 'New Contact'} (from ${formState.name})`
+    );
+    const body = encodeURIComponent(
+      `Hello Hariprasad,\n\nName: ${formState.name}\nEmail: ${formState.email}\nSubject: ${formState.subject}\n\nMessage:\n${formState.message}\n\n---\nSent from your portfolio contact form`
+    );
 
-      const data = await response.json();
-      if (response.ok && (data.success === 'true' || data.success === true || response.status === 200)) {
-        setSubmitted(true);
-        setFormState({ name: '', email: '', subject: '', message: '' });
-      } else {
-        // Fallback: open mailto if service is unavailable
-        window.location.href = `mailto:${resumeData.personal.email}?subject=${encodeURIComponent(formState.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`)}`;
-        setSubmitted(true);
-      }
-    } catch (err) {
-      // In case of network blocker, gracefully fallback to default email client
-      window.location.href = `mailto:${resumeData.personal.email}?subject=${encodeURIComponent(formState.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`)}`;
-      setSubmitted(true);
-    } finally {
-      setIsSubmitting(false);
+    // Primary: Open Gmail web compose in a new tab with everything filled in
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(resumeData.personal.email)}&su=${subject}&body=${body}`;
+    const mailtoUrl = `mailto:${resumeData.personal.email}?subject=${subject}&body=${body}`;
+
+    const newTab = window.open(gmailUrl, '_blank');
+    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+      // Fallback to mailto if popup blocked or client preference
+      window.location.href = mailtoUrl;
     }
+
+    setSubmitted(true);
+    setIsSubmitting(false);
   };
 
   return (
