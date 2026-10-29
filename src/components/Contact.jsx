@@ -7,6 +7,7 @@ export default function Contact() {
   const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [copiedType, setCopiedType] = useState(null); // 'email' or 'phone'
 
   const handleCopy = (text, type) => {
@@ -15,14 +16,46 @@ export default function Contact() {
     setTimeout(() => setCopiedType(null), 2500);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setErrorMessage('');
+
+    try {
+      // Send directly to FormSubmit (delivers securely to hariprasad.official.137@gmail.com)
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(resumeData.personal.email)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          _subject: `Portfolio Message from ${formState.name}: ${formState.subject || 'New Inquiry'}`,
+          subject: formState.subject,
+          message: formState.message,
+          _template: 'table',
+          _captcha: 'false'
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok && (data.success === 'true' || data.success === true || response.status === 200)) {
+        setSubmitted(true);
+        setFormState({ name: '', email: '', subject: '', message: '' });
+      } else {
+        // Fallback: open mailto if service is unavailable
+        window.location.href = `mailto:${resumeData.personal.email}?subject=${encodeURIComponent(formState.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`)}`;
+        setSubmitted(true);
+      }
+    } catch (err) {
+      // In case of network blocker, gracefully fallback to default email client
+      window.location.href = `mailto:${resumeData.personal.email}?subject=${encodeURIComponent(formState.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`)}`;
       setSubmitted(true);
-      setFormState({ name: '', email: '', subject: '', message: '' });
-    }, 1000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
