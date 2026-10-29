@@ -219,6 +219,7 @@ export default function Hero() {
         <div style={{ maxWidth: '840px', margin: '0 auto', marginBottom: '2.5rem' }}>
           <h1
             className="hero-main-title"
+            data-animate-chars
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(2.75rem, 7vw, 5.25rem)',
