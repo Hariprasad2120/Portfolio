@@ -187,13 +187,10 @@ export default function Hero() {
           top: '46%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '100%',
-          maxWidth: '1440px',
+          width: 'max-content',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: 'clamp(2rem, 8vw, 8rem)',
-          padding: '0 2rem',
           pointerEvents: 'none',
           zIndex: 1,
           userSelect: 'none',
@@ -205,25 +202,14 @@ export default function Hero() {
           className="hero-backdrop-text"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(4.5rem, 14vw, 12.5rem)',
+            fontSize: 'clamp(3.5rem, 11vw, 10.5rem)',
             fontWeight: 900,
-            letterSpacing: '-0.06em',
-            lineHeight: 0.8
+            letterSpacing: '-0.04em',
+            lineHeight: 0.8,
+            whiteSpace: 'nowrap'
           }}
         >
-          {resumeData.personal.wordmarkFirst}
-        </span>
-        <span
-          className="hero-backdrop-text"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(4.5rem, 14vw, 12.5rem)',
-            fontWeight: 900,
-            letterSpacing: '-0.06em',
-            lineHeight: 0.8
-          }}
-        >
-          {resumeData.personal.wordmarkSecond}
+          {resumeData.personal.wordmarkFirst} {resumeData.personal.wordmarkSecond}
         </span>
       </div>
 
