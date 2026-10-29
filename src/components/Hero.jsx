@@ -179,7 +179,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Iconic Giant Typography Wordmark (Split like the original demo) */}
+      {/* Iconic Giant Typography Wordmark */}
       <div
         className="hero-backdrop-wordmark"
         style={{
@@ -188,10 +188,12 @@ export default function Hero() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           width: '100%',
+          maxWidth: '1440px',
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           alignItems: 'center',
-          padding: '0 2vw',
+          gap: 'clamp(2rem, 8vw, 8rem)',
+          padding: '0 2rem',
           pointerEvents: 'none',
           zIndex: 1,
           userSelect: 'none',
@@ -203,7 +205,7 @@ export default function Hero() {
           className="hero-backdrop-text"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(5rem, 16vw, 15rem)',
+            fontSize: 'clamp(4.5rem, 14vw, 12.5rem)',
             fontWeight: 900,
             letterSpacing: '-0.06em',
             lineHeight: 0.8
@@ -215,7 +217,7 @@ export default function Hero() {
           className="hero-backdrop-text"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(5rem, 16vw, 15rem)',
+            fontSize: 'clamp(4.5rem, 14vw, 12.5rem)',
             fontWeight: 900,
             letterSpacing: '-0.06em',
             lineHeight: 0.8
