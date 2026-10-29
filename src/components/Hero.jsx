@@ -219,14 +219,14 @@ export default function Hero() {
         <div style={{ maxWidth: '840px', margin: '0 auto', marginBottom: '2.5rem' }}>
           <h1
             className="hero-main-title"
-            data-animate-chars
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(2.75rem, 7vw, 5.25rem)',
               fontWeight: 900,
               letterSpacing: '-0.04em',
               lineHeight: 1.05,
-              marginBottom: '1rem'
+              marginBottom: '1rem',
+              color: 'var(--text-highlight)'
             }}
           >
             {resumeData.personal.name}

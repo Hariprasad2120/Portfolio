@@ -14,7 +14,7 @@ export default function App() {
   useEffect(() => {
     // 1. Monolith Engine character-splitting scroll animation for headings
     const titleElements = document.querySelectorAll(
-      '.huge-section-heading, .section-title, [data-animate-chars]'
+      '.huge-section-heading, .section-title'
     );
 
     titleElements.forEach((el) => {
@@ -48,7 +48,7 @@ export default function App() {
 
     // 2. Select elements across sections to animate on scroll
     const targets = document.querySelectorAll(
-      '.section-wrapper, .section-header-block, .huge-section-heading, .section-desc, .glass-card, .service-card, .skills-category-card, .contact-card, .timeline-item, [data-animate-chars]'
+      '.section-wrapper, .section-header-block, .huge-section-heading, .section-desc, .glass-card, .service-card, .skills-category-card, .contact-card, .timeline-item'
     );
 
     const observer = new IntersectionObserver(
@@ -69,14 +69,9 @@ export default function App() {
     );
 
     targets.forEach((el, index) => {
-      // For elements inside #hero, observe for split-chars character reveal but don't add scroll-reveal class
-      if (el.closest('#hero')) {
-        if (el.matches('[data-animate-chars], .huge-section-heading')) {
-          observer.observe(el);
-        }
-        return;
-      }
-      if (!el.classList.contains('huge-section-heading') && !el.matches('[data-animate-chars]')) {
+      // Avoid attaching general scroll reveal to the initial hero content so it doesn't pop in late
+      if (el.closest('#home') || el.closest('#hero')) return;
+      if (!el.classList.contains('huge-section-heading')) {
         el.classList.add('scroll-reveal');
         const delay = (index % 4) * 0.08;
         el.style.transitionDelay = `${delay}s`;
